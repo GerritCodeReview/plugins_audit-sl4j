@@ -62,7 +62,7 @@ public class LoggerAudit implements AuditListener {
   private String getFormattedAudit(AuditEvent action) {
     return String.format(
         "%1$s | %2$s | %3$s | %4$s | %5$s | %6$s | %7$s | %8$s | %9$s | %10$s",
-        action.uuid.get(), getFormattedTS(action.when), action.sessionId,
+        action.uuid.uuid(), getFormattedTS(action.when), action.sessionId,
         getFormattedAuditSingle(action.who), getFormattedAuditSingle(action),
         action.what, getFormattedAuditList(action.params),
         getFormattedAuditSingle(action.result),
