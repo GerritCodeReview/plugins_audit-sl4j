@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2243b1e3_7dfef780",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditEventFormat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2016-02-23T01:47:06Z",
+      "side": 1,
+      "message": "Extra empty line?",
+      "revId": "c0511331d5a4daec78b77deb6606f03830761652",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2243b1e3_1dfb3390",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/SshAuditEventFormat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2016-02-23T01:47:06Z",
+      "side": 1,
+      "message": "Extra empty line?",
+      "revId": "c0511331d5a4daec78b77deb6606f03830761652",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
