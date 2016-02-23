@@ -47,6 +47,7 @@ public class LoggerAudit implements AuditListener {
               put(RpcAuditEventFormat.CLASS, new RpcAuditEventFormat());
               put(SshAuditEventFormat.CLASS, new SshAuditEventFormat());
               put(AuditEventFormat.CLASS, new AuditEventFormat());
+              put(GsqlAuditEventFormat.CLASS, new GsqlAuditEventFormat());
             }
           });
 
