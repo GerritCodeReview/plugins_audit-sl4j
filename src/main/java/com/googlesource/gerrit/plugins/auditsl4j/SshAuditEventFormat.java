@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.audit.SshAuditEvent;
+import com.google.gerrit.server.audit.SshAuditEvent;
 
 public class SshAuditEventFormat implements AuditFormatter<SshAuditEvent> {
   protected static final Class<?> CLASS = SshAuditEvent.class;

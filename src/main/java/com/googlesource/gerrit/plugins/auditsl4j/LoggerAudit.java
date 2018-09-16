@@ -27,8 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Multimap;
-import com.google.gerrit.audit.AuditEvent;
-import com.google.gerrit.audit.AuditListener;
+import com.google.gerrit.server.audit.AuditEvent;
+import com.google.gerrit.server.audit.AuditListener;
 import com.google.gerrit.extensions.annotations.Listen;
 import com.google.inject.Singleton;
 

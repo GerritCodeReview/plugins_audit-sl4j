@@ -14,8 +14,8 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.audit.HttpAuditEvent;
-import com.google.gerrit.audit.RpcAuditEvent;
+import com.google.gerrit.server.audit.HttpAuditEvent;
+import com.google.gerrit.server.audit.RpcAuditEvent;
 
 public class RpcAuditEventFormat implements AuditFormatter<HttpAuditEvent> {
   protected static final Class<?> CLASS = RpcAuditEvent.class;
