@@ -14,6 +14,11 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
+import com.google.common.collect.Multimap;
+import com.google.gerrit.extensions.annotations.Listen;
+import com.google.gerrit.server.audit.AuditEvent;
+import com.google.gerrit.server.audit.AuditListener;
+import com.google.inject.Singleton;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,26 +27,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.Multimap;
-import com.google.gerrit.server.audit.AuditEvent;
-import com.google.gerrit.server.audit.AuditListener;
-import com.google.gerrit.extensions.annotations.Listen;
-import com.google.inject.Singleton;
 
 @Listen
 @Singleton
 public class LoggerAudit implements AuditListener {
   private static final Logger log = LoggerFactory.getLogger(LoggerAudit.class);
-  private final SimpleDateFormat dateFmt = new SimpleDateFormat(
-      "yyyy/MM/dd hh:mm:ss.SSSS");
+  private final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss.SSSS");
+
   @SuppressWarnings("serial")
   private static final Map<Class<?>, AuditFormatter<?>> AUDIT_FORMATTERS =
-      Collections
-          .unmodifiableMap(new HashMap<Class<?>, AuditFormatter<? extends Object>>() {
+      Collections.unmodifiableMap(
+          new HashMap<Class<?>, AuditFormatter<? extends Object>>() {
             {
               put(HttpAuditEventFormat.CLASS, new HttpAuditEventFormat());
               put(RpcAuditEventFormat.CLASS, new RpcAuditEventFormat());
@@ -51,7 +49,8 @@ public class LoggerAudit implements AuditListener {
           });
 
   static {
-    log.info("EventId | EventTS | SessionId | User | Protocol data | Action | Parameters | Result | StartTS | Elapsed");
+    log.info(
+        "EventId | EventTS | SessionId | User | Protocol data | Action | Parameters | Result | StartTS | Elapsed");
   }
 
   @Override
@@ -62,11 +61,16 @@ public class LoggerAudit implements AuditListener {
   private String getFormattedAudit(AuditEvent action) {
     return String.format(
         "%1$s | %2$s | %3$s | %4$s | %5$s | %6$s | %7$s | %8$s | %9$s | %10$s",
-        action.uuid.uuid(), getFormattedTS(action.when), action.sessionId,
-        getFormattedAuditSingle(action.who), getFormattedAuditSingle(action),
-        action.what, getFormattedAuditList(action.params),
+        action.uuid.uuid(),
+        getFormattedTS(action.when),
+        action.sessionId,
+        getFormattedAuditSingle(action.who),
+        getFormattedAuditSingle(action),
+        action.what,
+        getFormattedAuditList(action.params),
         getFormattedAuditSingle(action.result),
-        getFormattedTS(action.timeAtStart), action.elapsed);
+        getFormattedTS(action.timeAtStart),
+        action.elapsed);
   }
 
   private Object getFormattedAuditList(Multimap<String, ?> params) {
@@ -106,17 +110,15 @@ public class LoggerAudit implements AuditListener {
 
     if (numValues > 1) {
       return "[" + out.toString() + "]";
-    } else {
-      return out.toString();
     }
+    return out.toString();
   }
 
   private <T> String getFormattedAuditSingle(T result) {
     if (result == null) return "";
 
     @SuppressWarnings("unchecked")
-    AuditFormatter<T> fmt =
-        (AuditFormatter<T>) AUDIT_FORMATTERS.get(result.getClass());
+    AuditFormatter<T> fmt = (AuditFormatter<T>) AUDIT_FORMATTERS.get(result.getClass());
     if (fmt == null) return result.toString();
 
     return fmt.format(result);
