@@ -106,9 +106,8 @@ public class LoggerAudit implements AuditListener {
 
     if (numValues > 1) {
       return "[" + out.toString() + "]";
-    } else {
-      return out.toString();
     }
+    return out.toString();
   }
 
   private <T> String getFormattedAuditSingle(T result) {
