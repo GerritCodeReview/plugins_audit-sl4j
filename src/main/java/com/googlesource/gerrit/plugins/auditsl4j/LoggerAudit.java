@@ -16,8 +16,6 @@ package com.googlesource.gerrit.plugins.auditsl4j;
 
 import com.google.gerrit.audit.AuditEvent;
 import com.google.gerrit.audit.AuditListener;
-import com.google.gerrit.extensions.registration.DynamicSet;
-import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -39,13 +37,6 @@ public class LoggerAudit implements AuditListener {
   private void writeHeaders(AuditWriter auditWriter) {
     auditWriter.write(
         "EventId | EventTS | SessionId | User | Protocol data | Action | Parameters | Result | StartTS | Elapsed");
-  }
-
-  public static class Module extends AbstractModule {
-    @Override
-    protected void configure() {
-      DynamicSet.bind(binder(), AuditListener.class).to(LoggerAudit.class);
-    }
   }
 
   @Override

@@ -12,7 +12,7 @@ gerrit_plugin(
     manifest_entries = [
         "Gerrit-PluginName: audit-sl4j",
         "Gerrit-ReloadMode: reload",
-        "Gerrit-Module: com.googlesource.gerrit.plugins.auditsl4j.LoggerAudit$Module",
+        "Gerrit-Module: com.googlesource.gerrit.plugins.auditsl4j.Module",
         "Implementation-Title: Gerrit Audit provider for SLF4J",
         "Implementation-URL: https://gerrit.googlesource.com/plugins/audit-sl4j/",
     ],

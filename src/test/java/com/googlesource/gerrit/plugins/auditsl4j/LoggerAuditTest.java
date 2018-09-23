@@ -29,12 +29,12 @@ import org.junit.Test;
 
 @TestPlugin(
     name = "audit-sl4j",
-    sysModule = "com.googlesource.gerrit.plugins.auditsl4j.LoggerAuditTest$Module")
+    sysModule = "com.googlesource.gerrit.plugins.auditsl4j.LoggerAuditTest$TestModule")
 public class LoggerAuditTest extends LightweightPluginDaemonTest {
 
   @Inject @CanonicalWebUrl private String webUrl;
 
-  public static class Module extends LoggerAudit.Module {
+  public static class TestModule extends Module {
 
     @Override
     protected void configure() {
