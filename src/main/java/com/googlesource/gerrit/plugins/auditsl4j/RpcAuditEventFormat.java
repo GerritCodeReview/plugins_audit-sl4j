@@ -14,14 +14,13 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.audit.HttpAuditEvent;
 import com.google.gerrit.audit.RpcAuditEvent;
 
-public class RpcAuditEventFormat implements AuditFormatter<HttpAuditEvent> {
+public class RpcAuditEventFormat implements AuditFormatter<RpcAuditEvent> {
   protected static final Class<?> CLASS = RpcAuditEvent.class;
 
   @Override
-  public String format(HttpAuditEvent result) {
+  public String format(RpcAuditEvent result) {
     return "RPC-" + result.httpMethod + ", Status:" + result.httpStatus;
   }
 }
