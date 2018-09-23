@@ -17,7 +17,9 @@ package com.googlesource.gerrit.plugins.auditsl4j;
 import com.google.common.collect.Multimap;
 import com.google.gerrit.audit.AuditEvent;
 import com.google.gerrit.audit.AuditListener;
-import com.google.gerrit.extensions.annotations.Listen;
+import com.google.gerrit.extensions.registration.DynamicSet;
+import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -27,14 +29,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-@Listen
 @Singleton
 public class LoggerAudit implements AuditListener {
-  private static final Logger log = LoggerFactory.getLogger(LoggerAudit.class);
   private final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss.SSSS");
+  private final AuditWriter auditWriter;
+
+  public static final String AUDIT_LOGGER_NAME = LoggerAudit.class.getName();
 
   @SuppressWarnings("serial")
   private static final Map<Class<?>, AuditFormatter<?>> AUDIT_FORMATTERS =
@@ -48,14 +49,27 @@ public class LoggerAudit implements AuditListener {
             }
           });
 
-  static {
-    log.info(
+  @Inject
+  LoggerAudit(AuditWriter auditWriter) {
+    this.auditWriter = auditWriter;
+    writeHeaders(auditWriter);
+  }
+
+  private void writeHeaders(AuditWriter auditWriter) {
+    auditWriter.write(
         "EventId | EventTS | SessionId | User | Protocol data | Action | Parameters | Result | StartTS | Elapsed");
+  }
+
+  public static class Module extends AbstractModule {
+    @Override
+    protected void configure() {
+      DynamicSet.bind(binder(), AuditListener.class).to(LoggerAudit.class);
+    }
   }
 
   @Override
   public void onAuditableAction(AuditEvent action) {
-    log.info(getFormattedAudit(action));
+    auditWriter.write(getFormattedAudit(action));
   }
 
   private String getFormattedAudit(AuditEvent action) {
