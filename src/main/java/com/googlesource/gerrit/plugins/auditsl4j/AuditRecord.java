@@ -15,11 +15,16 @@
 package com.googlesource.gerrit.plugins.auditsl4j;
 
 import com.google.gerrit.audit.AuditEvent;
-import java.util.Optional;
 
-public interface AuditRenderer {
+public class AuditRecord {
+  public final String type;
+  public final AuditEvent event;
 
-  String render(AuditEvent auditEvent);
+  public AuditRecord(AuditEvent event) {
+    super();
 
-  Optional<String> headers();
+    String eventClass = event.getClass().getName();
+    this.type = eventClass.substring(eventClass.lastIndexOf('.') + 1);
+    this.event = event;
+  }
 }

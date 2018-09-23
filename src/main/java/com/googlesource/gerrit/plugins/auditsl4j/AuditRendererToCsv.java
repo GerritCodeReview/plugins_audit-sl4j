@@ -20,6 +20,7 @@ import static com.googlesource.gerrit.plugins.auditsl4j.AuditFormatters.getForma
 import com.google.common.collect.Multimap;
 import com.google.gerrit.audit.AuditEvent;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -39,6 +40,12 @@ public class AuditRendererToCsv implements AuditRenderer {
         getFormattedAuditSingle(auditEvent.result),
         getFormattedTS(auditEvent.timeAtStart),
         auditEvent.elapsed);
+  }
+
+  @Override
+  public Optional<String> headers() {
+    return Optional.of(
+        "EventId | EventTS | SessionId | User | Protocol data | Action | Parameters | Result | StartTS | Elapsed");
   }
 
   private Object getFormattedAuditList(Multimap<String, ?> params) {

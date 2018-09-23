@@ -31,12 +31,7 @@ public class LoggerAudit implements AuditListener {
     this.auditWriter = auditWriter;
     this.auditRenderer = auditRenderer;
 
-    writeHeaders(auditWriter);
-  }
-
-  private void writeHeaders(AuditWriter auditWriter) {
-    auditWriter.write(
-        "EventId | EventTS | SessionId | User | Protocol data | Action | Parameters | Result | StartTS | Elapsed");
+    auditRenderer.headers().ifPresent(auditWriter::write);
   }
 
   @Override

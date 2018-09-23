@@ -22,8 +22,21 @@ gerrit_plugin(
 
 junit_tests(
     name = "audit_sl4j_tests",
-    srcs = glob(["src/test/java/**/*.java"]),
+    srcs = glob(["src/test/java/**/*Test.java"]),
     visibility = ["//visibility:public"],
+    deps = PLUGIN_TEST_DEPS + PLUGIN_DEPS + [
+        ":audit-sl4j__plugin",
+        ":audit_sl4j_util",
+    ],
+)
+
+java_library(
+    name = "audit_sl4j_util",
+    testonly = 1,
+    srcs = glob(
+        ["src/test/java/**/*.java"],
+        exclude = ["src/test/java/**/*Test.java"],
+    ),
     deps = PLUGIN_TEST_DEPS + PLUGIN_DEPS + [
         ":audit-sl4j__plugin",
     ],
