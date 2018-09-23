@@ -14,12 +14,21 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.audit.AuditEvent;
-import java.util.Optional;
+import com.google.inject.Singleton;
+import java.util.ArrayList;
+import java.util.List;
 
-public interface AuditRenderer {
+@Singleton
+public class AuditWriterToStringList implements AuditWriter {
+  public final List<String> strings = new ArrayList<>();
 
-  String render(AuditEvent auditEvent);
+  @Override
+  public void write(String msg) {
+    strings.add(msg);
+  }
 
-  Optional<String> headers();
+  @Override
+  public String toString() {
+    return strings.toString();
+  }
 }

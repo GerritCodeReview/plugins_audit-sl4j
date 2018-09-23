@@ -15,12 +15,35 @@
 package com.googlesource.gerrit.plugins.auditsl4j;
 
 import com.google.gerrit.audit.AuditListener;
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.registration.DynamicSet;
+import com.google.gerrit.server.config.PluginConfig;
+import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 
 public class Module extends AbstractModule {
+  private final PluginConfig config;
+
+  @Inject
+  public Module(@PluginName String pluginName, PluginConfigFactory configFactory) {
+    config = configFactory.getFromGerritConfig(pluginName);
+  }
+
   @Override
   protected void configure() {
     DynamicSet.bind(binder(), AuditListener.class).to(LoggerAudit.class);
+
+    AuditRenderTypes rendererType = config.getEnum("renderer", AuditRenderTypes.CSV);
+    switch (rendererType) {
+      case CSV:
+        bind(AuditRenderer.class).to(AuditRendererToCsv.class);
+        break;
+      case JSON:
+        bind(AuditRenderer.class).to(AuditRendererToJson.class);
+        break;
+      default:
+        throw new IllegalArgumentException("Unsupported renderer '" + rendererType + "'");
+    }
   }
 }

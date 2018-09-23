@@ -17,9 +17,14 @@ package com.googlesource.gerrit.plugins.auditsl4j;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
+import com.google.gerrit.acceptance.Sandboxed;
 import com.google.gerrit.acceptance.TestPlugin;
+import com.google.gerrit.audit.AuditListener;
 import com.google.gerrit.common.Version;
+import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.config.CanonicalWebUrl;
+import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.ArrayList;
@@ -27,43 +32,36 @@ import java.util.List;
 import org.apache.http.client.fluent.Request;
 import org.junit.Test;
 
+@Sandboxed
 @TestPlugin(
     name = "audit-sl4j",
-    sysModule = "com.googlesource.gerrit.plugins.auditsl4j.LoggerAuditTest$TestModule")
-public class LoggerAuditTest extends LightweightPluginDaemonTest {
+    sysModule = "com.googlesource.gerrit.plugins.auditsl4j.LoggerAuditToCsvTest$TestModule")
+public class LoggerAuditToCsvTest extends LightweightPluginDaemonTest implements WaitForCondition {
 
   @Inject @CanonicalWebUrl private String webUrl;
 
-  public static class TestModule extends Module {
+  public static class TestModule extends AbstractModule {
 
     @Override
     protected void configure() {
       bind(AuditWriter.class).to(AuditWriterToStringList.class);
-      super.configure();
-    }
-  }
-
-  @Singleton
-  public static class AuditWriterToStringList implements AuditWriter {
-    public final List<String> strings = new ArrayList<>();
-
-    @Override
-    public void write(String msg) {
-      strings.add(msg);
+      bind(AuditRenderer.class).to(AuditRendererToCsv.class);
+      DynamicSet.bind(binder(), AuditListener.class).to(LoggerAudit.class);
     }
   }
 
   @Test
-  public void testHttpAudit() throws Exception {
+  public void testHttpCsvAudit() throws Exception {
     AuditWriterToStringList auditStrings = getPluginInstance(AuditWriterToStringList.class);
 
     Request.Get(webUrl + "config/server/version").execute().returnResponse();
 
-    assertThat(auditStrings.strings).hasSize(2);
+    assertThat(waitFor(() -> auditStrings.strings.size() == 2)).isTrue();
     assertThat(auditStrings.strings.get(1)).contains(Version.getVersion());
   }
 
   private <T> T getPluginInstance(Class<T> clazz) {
     return plugin.getSysInjector().getInstance(clazz);
   }
+
 }

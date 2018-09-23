@@ -15,11 +15,20 @@
 package com.googlesource.gerrit.plugins.auditsl4j;
 
 import com.google.gerrit.audit.AuditEvent;
+import com.google.gerrit.server.OutputFormat;
+import com.google.gson.Gson;
 import java.util.Optional;
 
-public interface AuditRenderer {
+public class AuditRendererToJson implements AuditRenderer {
+  private final Gson gson = OutputFormat.JSON_COMPACT.newGsonBuilder().create();
 
-  String render(AuditEvent auditEvent);
+  @Override
+  public String render(AuditEvent auditEvent) {
+    return gson.toJson(auditEvent);
+  }
 
-  Optional<String> headers();
+  @Override
+  public Optional<String> headers() {
+    return Optional.empty();
+  }
 }
