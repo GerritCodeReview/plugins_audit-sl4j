@@ -43,7 +43,7 @@ public class LoggerAuditToJsonTest extends LightweightPluginDaemonTest implement
     @Override
     protected void configure() {
       bind(AuditWriter.class).to(AuditWriterToStringList.class);
-      bind(AuditRenderer.class).to(AuditRendererToJson.class);
+      bind(AuditFormatRenderer.class).to(AuditRendererToJson.class);
       DynamicSet.bind(binder(), AuditListener.class).to(LoggerAudit.class);
     }
   }

@@ -14,12 +14,7 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.audit.AuditEvent;
-import java.util.Optional;
-
-public interface AuditRenderer {
-
-  String render(AuditEvent auditEvent);
-
-  Optional<String> headers();
+public enum AuditFormatTypes {
+  CSV,
+  JSON;
 }

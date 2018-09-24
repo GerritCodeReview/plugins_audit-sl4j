@@ -22,12 +22,12 @@ import com.google.inject.Singleton;
 @Singleton
 public class LoggerAudit implements AuditListener {
   private final AuditWriter auditWriter;
-  private final AuditRenderer auditRenderer;
+  private final AuditFormatRenderer auditRenderer;
 
   public static final String AUDIT_LOGGER_NAME = LoggerAudit.class.getName();
 
   @Inject
-  LoggerAudit(AuditWriter auditWriter, AuditRenderer auditRenderer) {
+  LoggerAudit(AuditWriter auditWriter, AuditFormatRenderer auditRenderer) {
     this.auditWriter = auditWriter;
     this.auditRenderer = auditRenderer;
 

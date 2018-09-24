@@ -31,7 +31,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class AuditRendererToCsv implements AuditRenderer {
+public class AuditRendererToCsv implements AuditFormatRenderer {
   
   private static final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss.SSSS");
 

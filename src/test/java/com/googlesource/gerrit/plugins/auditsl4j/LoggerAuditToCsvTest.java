@@ -45,7 +45,7 @@ public class LoggerAuditToCsvTest extends LightweightPluginDaemonTest implements
     @Override
     protected void configure() {
       bind(AuditWriter.class).to(AuditWriterToStringList.class);
-      bind(AuditRenderer.class).to(AuditRendererToCsv.class);
+      bind(AuditFormatRenderer.class).to(AuditRendererToCsv.class);
       DynamicSet.bind(binder(), AuditListener.class).to(LoggerAudit.class);
     }
   }

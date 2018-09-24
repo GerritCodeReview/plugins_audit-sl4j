@@ -34,13 +34,13 @@ public class Module extends AbstractModule {
   protected void configure() {
     DynamicSet.bind(binder(), AuditListener.class).to(LoggerAudit.class);
 
-    AuditRenderTypes rendererType = config.getEnum("renderer", AuditRenderTypes.CSV);
+    AuditFormatTypes rendererType = config.getEnum("format", AuditFormatTypes.CSV);
     switch (rendererType) {
       case CSV:
-        bind(AuditRenderer.class).to(AuditRendererToCsv.class);
+        bind(AuditFormatRenderer.class).to(AuditRendererToCsv.class);
         break;
       case JSON:
-        bind(AuditRenderer.class).to(AuditRendererToJson.class);
+        bind(AuditFormatRenderer.class).to(AuditRendererToJson.class);
         break;
       default:
         throw new IllegalArgumentException("Unsupported renderer '" + rendererType + "'");

@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 
-public class AuditRendererToJson implements AuditRenderer {
+public class AuditRendererToJson implements AuditFormatRenderer {
   private final ExclusionStrategy INCLUDE_ONLY_WHITELISTED =
       new ExclusionStrategy() {
         private final HashSet<Class<?>> WHITELIST_CLASSES =
