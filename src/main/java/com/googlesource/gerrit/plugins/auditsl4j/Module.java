@@ -15,26 +15,23 @@
 package com.googlesource.gerrit.plugins.auditsl4j;
 
 import com.google.gerrit.audit.AuditListener;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.registration.DynamicSet;
-import com.google.gerrit.server.config.PluginConfig;
-import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 
 public class Module extends AbstractModule {
-  private final PluginConfig config;
+  private final AuditConfig config;
 
   @Inject
-  public Module(@PluginName String pluginName, PluginConfigFactory configFactory) {
-    config = configFactory.getFromGerritConfig(pluginName);
+  public Module(AuditConfig config) {
+    this.config = config;
   }
 
   @Override
   protected void configure() {
     DynamicSet.bind(binder(), AuditListener.class).to(LoggerAudit.class);
 
-    AuditFormatTypes rendererType = config.getEnum("format", AuditFormatTypes.CSV);
+    AuditFormatTypes rendererType = config.getFormat();
     switch (rendererType) {
       case CSV:
         bind(AuditFormatRenderer.class).to(AuditRendererToCsv.class);
