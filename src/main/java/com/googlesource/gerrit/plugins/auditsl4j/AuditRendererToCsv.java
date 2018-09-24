@@ -14,17 +14,73 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import static com.googlesource.gerrit.plugins.auditsl4j.AuditFormatters.getFormattedAuditSingle;
-import static com.googlesource.gerrit.plugins.auditsl4j.AuditFormatters.getFormattedTS;
-
 import com.google.common.collect.Multimap;
 import com.google.gerrit.audit.AuditEvent;
+import com.google.gerrit.audit.ExtendedHttpAuditEvent;
+import com.google.gerrit.audit.HttpAuditEvent;
+import com.google.gerrit.audit.RpcAuditEvent;
+import com.google.gerrit.audit.SshAuditEvent;
+
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class AuditRendererToCsv implements AuditRenderer {
+  
+  private static final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss.SSSS");
+
+  @SuppressWarnings("serial")
+  private static final Map<Class<?>, CsvFieldFormatter<?>> FIELD_CSV_FORMATTERS =
+      Collections.unmodifiableMap(
+          new HashMap<Class<?>, CsvFieldFormatter<? extends Object>>() {
+            {
+              put(HttpAuditEvent.class, new HttpAuditEventFormat());
+              put(ExtendedHttpAuditEvent.class, new HttpAuditEventFormat());
+              put(RpcAuditEvent.class, new RpcAuditEventFormat());
+              put(SshAuditEvent.class, new SshAuditEventFormat());
+              put(AuditEvent.class, new AuditEventFormat());
+            }
+          });
+  
+  interface CsvFieldFormatter<T> {
+    String formatToCsv(T result);
+  }
+  
+  static class RpcAuditEventFormat implements CsvFieldFormatter<RpcAuditEvent> {
+    @Override
+    public String formatToCsv(RpcAuditEvent result) {
+      return "RPC-" + result.httpMethod + ", Status:" + result.httpStatus;
+    }
+  }
+  
+  static class HttpAuditEventFormat implements CsvFieldFormatter<HttpAuditEvent> {
+
+    @Override
+    public String formatToCsv(HttpAuditEvent result) {
+      return "HTTP-" + result.httpMethod + ", Status:" + result.httpStatus;
+    }
+  }
+  
+  static class SshAuditEventFormat implements CsvFieldFormatter<SshAuditEvent> {
+    @Override
+    public String formatToCsv(SshAuditEvent result) {
+      return "SSH";
+    }
+  }
+  
+  static class AuditEventFormat implements CsvFieldFormatter<SshAuditEvent> {
+
+    @Override
+    public String formatToCsv(SshAuditEvent result) {
+      return "";
+    }
+  }
 
   @Override
   public String render(AuditEvent auditEvent) {
@@ -33,11 +89,11 @@ public class AuditRendererToCsv implements AuditRenderer {
         auditEvent.uuid.uuid(),
         getFormattedTS(auditEvent.when),
         auditEvent.sessionId,
-        getFormattedAuditSingle(auditEvent.who),
-        getFormattedAuditSingle(auditEvent),
+        getFieldAsCsv(auditEvent.who),
+        getFieldAsCsv(auditEvent),
         auditEvent.what,
         getFormattedAuditList(auditEvent.params),
-        getFormattedAuditSingle(auditEvent.result),
+        getFieldAsCsv(auditEvent.result),
         getFormattedTS(auditEvent.timeAtStart),
         auditEvent.elapsed);
   }
@@ -79,7 +135,7 @@ public class AuditRendererToCsv implements AuditRenderer {
       if (numValues > 0) {
         out.append(",");
       }
-      out.append(getFormattedAuditSingle(object));
+      out.append(getFieldAsCsv(object));
       numValues++;
     }
 
@@ -87,5 +143,20 @@ public class AuditRendererToCsv implements AuditRenderer {
       return "[" + out.toString() + "]";
     }
     return out.toString();
+  }
+  
+
+  public static <T> String getFieldAsCsv(T result) {
+    if (result == null) return "";
+
+    @SuppressWarnings("unchecked")
+    CsvFieldFormatter<T> fmt = (CsvFieldFormatter<T>) FIELD_CSV_FORMATTERS.get(result.getClass());
+    if (fmt == null) return result.toString();
+
+    return fmt.formatToCsv(result);
+  }
+
+  public static synchronized String getFormattedTS(long when) {
+    return dateFmt.format(new Date(when));
   }
 }
