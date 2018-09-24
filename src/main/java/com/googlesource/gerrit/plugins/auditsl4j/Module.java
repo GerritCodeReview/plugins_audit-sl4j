@@ -42,5 +42,9 @@ public class Module extends AbstractModule {
       default:
         throw new IllegalArgumentException("Unsupported renderer '" + rendererType + "'");
     }
+
+    if (config.getLogName().isPresent()) {
+      bind(AuditWriter.class).to(AuditWriterToAsyncAppender.class);
+    }
   }
 }

@@ -18,6 +18,7 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.inject.Inject;
+import java.util.Optional;
 
 public class AuditConfig {
   private final PluginConfig config;
@@ -29,5 +30,9 @@ public class AuditConfig {
 
   public AuditFormatTypes getFormat() {
     return config.getEnum("format", AuditFormatTypes.CSV);
+  }
+
+  public Optional<String> getLogName() {
+    return Optional.ofNullable(config.getString("logName"));
   }
 }
