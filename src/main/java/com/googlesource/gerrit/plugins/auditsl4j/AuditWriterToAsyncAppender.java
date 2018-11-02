@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.auditsl4j;
 
 import com.google.gerrit.server.util.SystemLog;
 import com.google.gerrit.server.util.time.TimeUtil;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.log4j.AsyncAppender;
 import org.apache.log4j.Level;
@@ -28,6 +29,7 @@ public class AuditWriterToAsyncAppender implements AuditWriter {
   private final Logger log = Logger.getLogger(LoggerAudit.AUDIT_LOGGER_NAME);
   private final AsyncAppender appender;
 
+  @Inject
   public AuditWriterToAsyncAppender(AuditConfig config, SystemLog systemLog) {
     String logName = config.getLogName().get();
     appender = systemLog.createAsyncAppender(logName, new PatternLayout());
