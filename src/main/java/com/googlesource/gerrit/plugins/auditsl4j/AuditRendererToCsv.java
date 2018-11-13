@@ -15,7 +15,7 @@
 package com.googlesource.gerrit.plugins.auditsl4j;
 
 import com.google.common.collect.Multimap;
-import com.google.gerrit.server.audit.AuditEvent;
+import com.google.gerrit.server.AuditEvent;
 import com.google.gerrit.server.audit.ExtendedHttpAuditEvent;
 import com.google.gerrit.server.audit.HttpAuditEvent;
 import com.google.gerrit.server.audit.RpcAuditEvent;

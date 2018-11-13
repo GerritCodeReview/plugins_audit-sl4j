@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.server.audit.AuditEvent;
+import com.google.gerrit.server.AuditEvent;
 import com.google.gerrit.server.audit.SshAuditEvent;
 import java.util.Optional;
 

@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.server.audit.AuditEvent;
+import com.google.gerrit.server.AuditEvent;
 
 public class AuditRecord {
   public final String type;

@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.server.audit.AuditEvent;
+import com.google.gerrit.server.AuditEvent;
 import com.google.gerrit.server.audit.AuditListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

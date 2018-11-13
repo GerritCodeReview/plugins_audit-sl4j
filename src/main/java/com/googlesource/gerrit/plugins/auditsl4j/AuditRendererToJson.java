@@ -19,7 +19,7 @@ import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.AccessPath;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.OutputFormat;
-import com.google.gerrit.server.audit.AuditEvent;
+import com.google.gerrit.server.AuditEvent;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
