@@ -18,7 +18,6 @@ import com.google.common.collect.Multimap;
 import com.google.gerrit.server.AuditEvent;
 import com.google.gerrit.server.audit.ExtendedHttpAuditEvent;
 import com.google.gerrit.server.audit.HttpAuditEvent;
-import com.google.gerrit.server.audit.RpcAuditEvent;
 import com.google.gerrit.server.audit.SshAuditEvent;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -41,7 +40,6 @@ public class AuditRendererToCsv implements AuditFormatRenderer {
             {
               put(HttpAuditEvent.class, new HttpAuditEventFormat());
               put(ExtendedHttpAuditEvent.class, new HttpAuditEventFormat());
-              put(RpcAuditEvent.class, new RpcAuditEventFormat());
               put(SshAuditEvent.class, new SshAuditEventFormat());
               put(AuditEvent.class, new AuditEventFormat());
             }
@@ -49,13 +47,6 @@ public class AuditRendererToCsv implements AuditFormatRenderer {
 
   interface CsvFieldFormatter<T> {
     String formatToCsv(T result);
-  }
-
-  static class RpcAuditEventFormat implements CsvFieldFormatter<RpcAuditEvent> {
-    @Override
-    public String formatToCsv(RpcAuditEvent result) {
-      return "RPC-" + result.httpMethod + ", Status:" + result.httpStatus;
-    }
   }
 
   static class HttpAuditEventFormat implements CsvFieldFormatter<HttpAuditEvent> {
