@@ -1,4 +1,4 @@
-// Copyright (C) 2012 The Android Open Source Project
+// Copyright (C) 2018 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,7 +14,14 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-public interface AuditFormatter<T> {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-  String format(T result);
+public class AuditWriterToLogger implements AuditWriter {
+  private static final Logger log = LoggerFactory.getLogger(LoggerAudit.AUDIT_LOGGER_NAME);
+
+  @Override
+  public void write(String auditBody) {
+    log.info(auditBody);
+  }
 }

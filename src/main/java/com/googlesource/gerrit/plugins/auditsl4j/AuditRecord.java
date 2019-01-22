@@ -1,4 +1,4 @@
-// Copyright (C) 2012 The Android Open Source Project
+// Copyright (C) 2018 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,13 +14,17 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.audit.SshAuditEvent;
+import com.google.gerrit.audit.AuditEvent;
 
-public class SshAuditEventFormat implements AuditFormatter<SshAuditEvent> {
-  protected static final Class<?> CLASS = SshAuditEvent.class;
+public class AuditRecord {
+  public final String type;
+  public final AuditEvent event;
 
-  @Override
-  public String format(SshAuditEvent result) {
-    return "SSH";
+  public AuditRecord(AuditEvent event) {
+    super();
+
+    String eventClass = event.getClass().getName();
+    this.type = eventClass.substring(eventClass.lastIndexOf('.') + 1);
+    this.event = event;
   }
 }

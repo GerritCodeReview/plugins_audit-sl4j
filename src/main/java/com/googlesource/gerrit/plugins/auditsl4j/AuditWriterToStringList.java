@@ -1,4 +1,4 @@
-// Copyright (C) 2012 The Android Open Source Project
+// Copyright (C) 2018 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,14 +14,21 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.audit.AuditEvent;
-import com.google.gerrit.audit.SshAuditEvent;
+import com.google.inject.Singleton;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AuditEventFormat implements AuditFormatter<SshAuditEvent> {
-  public static final Class<?> CLASS = AuditEvent.class;
+@Singleton
+public class AuditWriterToStringList implements AuditWriter {
+  public final List<String> strings = new ArrayList<>();
 
   @Override
-  public String format(SshAuditEvent result) {
-    return "";
+  public void write(String msg) {
+    strings.add(msg);
+  }
+
+  @Override
+  public String toString() {
+    return strings.toString();
   }
 }

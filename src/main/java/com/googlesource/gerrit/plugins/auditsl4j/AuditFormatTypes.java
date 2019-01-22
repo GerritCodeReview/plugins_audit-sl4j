@@ -1,4 +1,4 @@
-// Copyright (C) 2012 The Android Open Source Project
+// Copyright (C) 2018 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,13 +14,7 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.audit.HttpAuditEvent;
-
-public class HttpAuditEventFormat implements AuditFormatter<HttpAuditEvent> {
-  protected static final Class<?> CLASS = HttpAuditEvent.class;
-
-  @Override
-  public String format(HttpAuditEvent result) {
-    return "HTTP-" + result.httpMethod + ", Status:" + result.httpStatus;
-  }
+public enum AuditFormatTypes {
+  CSV,
+  JSON;
 }
