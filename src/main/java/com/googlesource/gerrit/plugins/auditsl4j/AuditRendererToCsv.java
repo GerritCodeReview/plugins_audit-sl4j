@@ -20,7 +20,6 @@ import com.google.gerrit.audit.ExtendedHttpAuditEvent;
 import com.google.gerrit.audit.HttpAuditEvent;
 import com.google.gerrit.audit.RpcAuditEvent;
 import com.google.gerrit.audit.SshAuditEvent;
-
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,7 +31,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class AuditRendererToCsv implements AuditFormatRenderer {
-  
+
   private static final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss.SSSS");
 
   @SuppressWarnings("serial")
@@ -47,18 +46,18 @@ public class AuditRendererToCsv implements AuditFormatRenderer {
               put(AuditEvent.class, new AuditEventFormat());
             }
           });
-  
+
   interface CsvFieldFormatter<T> {
     String formatToCsv(T result);
   }
-  
+
   static class RpcAuditEventFormat implements CsvFieldFormatter<RpcAuditEvent> {
     @Override
     public String formatToCsv(RpcAuditEvent result) {
       return "RPC-" + result.httpMethod + ", Status:" + result.httpStatus;
     }
   }
-  
+
   static class HttpAuditEventFormat implements CsvFieldFormatter<HttpAuditEvent> {
 
     @Override
@@ -66,14 +65,14 @@ public class AuditRendererToCsv implements AuditFormatRenderer {
       return "HTTP-" + result.httpMethod + ", Status:" + result.httpStatus;
     }
   }
-  
+
   static class SshAuditEventFormat implements CsvFieldFormatter<SshAuditEvent> {
     @Override
     public String formatToCsv(SshAuditEvent result) {
       return "SSH";
     }
   }
-  
+
   static class AuditEventFormat implements CsvFieldFormatter<SshAuditEvent> {
 
     @Override
@@ -96,6 +95,11 @@ public class AuditRendererToCsv implements AuditFormatRenderer {
         getFieldAsCsv(auditEvent.result),
         getFormattedTS(auditEvent.timeAtStart),
         auditEvent.elapsed);
+  }
+
+  @Override
+  public String render(AuditEvent auditEvent, TransformableAuditLogType type) {
+    return render(auditEvent);
   }
 
   @Override
@@ -144,7 +148,6 @@ public class AuditRendererToCsv implements AuditFormatRenderer {
     }
     return out.toString();
   }
-  
 
   public static <T> String getFieldAsCsv(T result) {
     if (result == null) return "";

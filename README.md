@@ -103,3 +103,11 @@ Example audit of a Gerrit changes query over SSH:
   }
 }
 ```
+
+## Import old logs
+
+The makes available an ssh command to transform `http_logs` and `ssh_logs` into Audit Logs:
+
+```bash
+ssh -p 29418 admin@localhost audit-sl4j transform --from 2019-01-23 --until 2019-01-24
+```
