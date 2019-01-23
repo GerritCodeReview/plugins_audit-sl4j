@@ -36,7 +36,15 @@ public class LoggerAudit implements AuditListener {
 
   @Override
   public void onAuditableAction(AuditEvent auditEvent) {
-    String auditString = auditRenderer.render(auditEvent);
+    String auditString = getAuditString(auditEvent);
     auditWriter.write(auditString);
+  }
+
+  public String getAuditString(AuditEvent auditEvent) {
+    return auditRenderer.render(auditEvent);
+  }
+
+  public String getAuditString(AuditEvent auditEvent, String type) {
+    return auditRenderer.render(auditEvent, type);
   }
 }

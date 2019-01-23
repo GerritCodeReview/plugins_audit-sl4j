@@ -74,6 +74,11 @@ public class AuditRendererToJson implements AuditFormatRenderer {
   }
 
   @Override
+  public String render(AuditEvent auditEvent, String type) {
+    return gson.toJson(new AuditRecord(auditEvent, type));
+  }
+
+    @Override
   public Optional<String> headers() {
     return Optional.empty();
   }
