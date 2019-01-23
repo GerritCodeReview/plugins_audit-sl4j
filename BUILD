@@ -13,6 +13,7 @@ gerrit_plugin(
         "Gerrit-PluginName: audit-sl4j",
         "Gerrit-ReloadMode: reload",
         "Gerrit-Module: com.googlesource.gerrit.plugins.auditsl4j.Module",
+        "Gerrit-SshModule: com.googlesource.gerrit.plugins.auditsl4j.SshModule",
         "Implementation-Title: Gerrit Audit provider for SLF4J",
         "Implementation-URL: https://gerrit.googlesource.com/plugins/audit-sl4j/",
     ],
