@@ -27,4 +27,11 @@ public class AuditRecord {
     this.type = eventClass.substring(eventClass.lastIndexOf('.') + 1);
     this.event = event;
   }
+
+  public AuditRecord(AuditEvent event, String type) {
+    super();
+
+    this.type = type;
+    this.event = event;
+  }
 }
