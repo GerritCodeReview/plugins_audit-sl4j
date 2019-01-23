@@ -21,5 +21,7 @@ public interface AuditFormatRenderer {
 
   String render(AuditEvent auditEvent);
 
+  String render(AuditEvent auditEvent, TransformableAuditLogType type);
+
   Optional<String> headers();
 }
