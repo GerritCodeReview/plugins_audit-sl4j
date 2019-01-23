@@ -1,4 +1,4 @@
-// Copyright (C) 2018 The Android Open Source Project
+// Copyright (C) 2019 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,14 +14,30 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.server.AuditEvent;
+import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.account.GroupMembership;
+
 import java.util.Optional;
 
-public interface AuditFormatRenderer {
+public class AuditUser extends CurrentUser {
+  String username;
 
-  String render(AuditEvent auditEvent);
+  @Override
+  public GroupMembership getEffectiveGroups() {
+    return null;
+  }
 
-  String render(AuditEvent auditEvent, TransformableAuditLogType type);
+  @Override
+  public Object getCacheKey() {
+    return null;
+  }
 
-  Optional<String> headers();
+  @Override
+  public Optional<String> getUserName() {
+    return Optional.of(username);
+  }
+
+  public void setUserName(String username) {
+    this.username = username;
+  }
 }

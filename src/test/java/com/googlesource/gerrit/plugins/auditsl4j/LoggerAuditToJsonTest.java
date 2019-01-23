@@ -14,8 +14,6 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.Sandboxed;
 import com.google.gerrit.acceptance.TestPlugin;
@@ -29,6 +27,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import org.apache.http.client.fluent.Request;
 import org.junit.Test;
+
+import static com.google.common.truth.Truth.assertThat;
 
 @Sandboxed
 @TestPlugin(

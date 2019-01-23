@@ -14,7 +14,6 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.server.audit.HttpAuditEvent;
 import com.google.inject.ImplementedBy;
 
 @ImplementedBy(AuditWriterToLogger.class)

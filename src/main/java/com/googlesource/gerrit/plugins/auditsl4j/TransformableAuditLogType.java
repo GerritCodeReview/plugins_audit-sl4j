@@ -1,4 +1,4 @@
-// Copyright (C) 2018 The Android Open Source Project
+// Copyright (C) 2019 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,14 +14,8 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
-import com.google.gerrit.server.AuditEvent;
-import java.util.Optional;
-
-public interface AuditFormatRenderer {
-
-  String render(AuditEvent auditEvent);
-
-  String render(AuditEvent auditEvent, TransformableAuditLogType type);
-
-  Optional<String> headers();
+public enum TransformableAuditLogType {
+  HttpAuditEvent,
+  ExtendedHttpAuditEvent,
+  SshAuditEvent
 }
