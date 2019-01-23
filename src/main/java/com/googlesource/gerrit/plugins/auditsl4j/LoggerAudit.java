@@ -27,7 +27,7 @@ public class LoggerAudit implements AuditListener {
   public static final String AUDIT_LOGGER_NAME = LoggerAudit.class.getName();
 
   @Inject
-  LoggerAudit(AuditWriter auditWriter, AuditFormatRenderer auditRenderer) {
+  public LoggerAudit(AuditWriter auditWriter, AuditFormatRenderer auditRenderer) {
     this.auditWriter = auditWriter;
     this.auditRenderer = auditRenderer;
 
@@ -36,7 +36,15 @@ public class LoggerAudit implements AuditListener {
 
   @Override
   public void onAuditableAction(AuditEvent auditEvent) {
-    String auditString = auditRenderer.render(auditEvent);
+    String auditString = getAuditString(auditEvent);
     auditWriter.write(auditString);
+  }
+
+  public String getAuditString(AuditEvent auditEvent) {
+    return auditRenderer.render(auditEvent);
+  }
+
+  public String getAuditString(AuditEvent auditEvent, TransformableAuditLogType type) {
+    return auditRenderer.render(auditEvent, type);
   }
 }
