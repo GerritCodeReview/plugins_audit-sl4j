@@ -17,9 +17,9 @@ package com.googlesource.gerrit.plugins.auditsl4j;
 import com.google.common.collect.ListMultimap;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.AccessPath;
+import com.google.gerrit.server.AuditEvent;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.OutputFormat;
-import com.google.gerrit.server.AuditEvent;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -71,6 +71,11 @@ public class AuditRendererToJson implements AuditFormatRenderer {
   @Override
   public String render(AuditEvent auditEvent) {
     return gson.toJson(new AuditRecord(auditEvent));
+  }
+
+  @Override
+  public String render(AuditEvent auditEvent, TransformableAuditLogType type) {
+    return gson.toJson(new AuditRecord(auditEvent, type));
   }
 
   @Override
