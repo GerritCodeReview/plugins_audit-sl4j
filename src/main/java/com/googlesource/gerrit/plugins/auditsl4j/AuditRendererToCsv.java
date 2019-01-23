@@ -99,6 +99,11 @@ public class AuditRendererToCsv implements AuditFormatRenderer {
   }
 
   @Override
+  public String render(AuditEvent auditEvent, TransformableAuditLogType type) {
+    return render(auditEvent);
+  }
+
+  @Override
   public Optional<String> headers() {
     return Optional.of(
         "EventId | EventTS | SessionId | User | Protocol data | Action | Parameters | Result | StartTS | Elapsed");
