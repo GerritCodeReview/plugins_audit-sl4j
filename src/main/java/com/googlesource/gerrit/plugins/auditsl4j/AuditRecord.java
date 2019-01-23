@@ -27,4 +27,11 @@ public class AuditRecord {
     this.type = eventClass.substring(eventClass.lastIndexOf('.') + 1);
     this.event = event;
   }
+
+  public AuditRecord(AuditEvent event, TransformableAuditLogType type) {
+    super();
+
+    this.type = type.name();
+    this.event = event;
+  }
 }
