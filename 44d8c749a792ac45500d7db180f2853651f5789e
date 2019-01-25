@@ -16,6 +16,24 @@
       "revId": "44d8c749a792ac45500d7db180f2853651f5789e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9993ac7_6bfa82a5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditLog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-01-25T16:17:27Z",
+      "side": 1,
+      "message": "Good point! I forgot about that :/",
+      "parentUuid": "2c0a7aed_2176ebd5",
+      "revId": "44d8c749a792ac45500d7db180f2853651f5789e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
