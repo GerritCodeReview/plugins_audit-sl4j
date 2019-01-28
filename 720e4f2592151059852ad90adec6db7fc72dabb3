@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08207b1e_28c88633",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditHTTPLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-28T14:49:18Z",
+      "side": 1,
+      "message": "Number based grouping becomes a bit difficult to follow with all these groups.\nHow about using named captures instead?",
+      "revId": "720e4f2592151059852ad90adec6db7fc72dabb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ca7b56f_dcc16c53",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditHTTPLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-28T14:49:18Z",
+      "side": 1,
+      "message": "I am not sure swallowing the error and returning null from this factory is a good idea as this might lead to NullPointerExceptions.\n\nShould we throw exceptions instead?\nOr alternatively, can we define an object that can represent failure (or use Optional, even)?",
+      "revId": "720e4f2592151059852ad90adec6db7fc72dabb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77404f0b_dcd801a6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-28T14:49:18Z",
+      "side": 1,
+      "message": "Do we need this object at all?\nCan we not use directly ExtendedHttpAuditEvent, SshAuditEvent, etc?",
+      "revId": "720e4f2592151059852ad90adec6db7fc72dabb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a965d379_2420c811",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditLogEvent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-28T14:49:18Z",
+      "side": 1,
+      "message": "Should this represent only an HttpEvent instead?",
+      "revId": "720e4f2592151059852ad90adec6db7fc72dabb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "147cb5b5_fb2daa88",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/TransformLogsCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-28T14:49:18Z",
+      "side": 1,
+      "message": "should we try to avoid wildcard imports, so it is easier to understand dependencies?",
+      "revId": "720e4f2592151059852ad90adec6db7fc72dabb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8df8c23_59d59090",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/TransformLogsCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-28T14:49:18Z",
+      "side": 1,
+      "message": "I don\u0027t think this command is necessary",
+      "revId": "720e4f2592151059852ad90adec6db7fc72dabb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
