@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "370a6a12_a90f8060",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditSshLog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-01-31T14:22:21Z",
+      "side": 1,
+      "message": "Removed. It doesn\u0027t make sense here. I could probably add a Caveat, saying the \u0027elapsed\u0027 time values are not correct, when transforming logs. WDYT?\n\nTo fix it we will need a patch in Gerrit core, hence I was thinking we could probably do it in a follow up change.",
+      "parentUuid": "633e08ce_35dbc87d",
+      "range": {
+        "startLine": 101,
+        "startChar": 1,
+        "endLine": 102,
+        "endChar": 12
+      },
+      "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7eede87c_dead45af",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditSshLog.java",
         "patchSetId": 10
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "1a5a6b29_2758e1c0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditSshLog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-01-31T14:22:21Z",
+      "side": 1,
+      "message": "It wasn\u0027t actually used, I removed it.",
+      "parentUuid": "7eede87c_dead45af",
+      "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddad4c9d_be5f855c",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/TransformLogsCommand.java",
         "patchSetId": 10
@@ -53,6 +95,24 @@
       "writtenOn": "2019-01-31T09:28:31Z",
       "side": 1,
       "message": "Should these be printed on stderr instead?\nAlso, some logs go to error_logs, whilest some others get just printed.\nWhat\u0027s the rationale behind one or the other? Should we make the error reporting going all to the same place (logs)? How do other plugins do this?",
+      "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1743bcb_2889ecf5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/TransformLogsCommand.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-01-31T14:22:21Z",
+      "side": 1,
+      "message": "I rearranged the logging:\n- stderr and stdout are used to give the user immediate feedback when running the command or show a progression in the operations\n- error_logs are used to trace unexpected behaviours and keep track of them, even if the command run without human supervision",
+      "parentUuid": "ddad4c9d_be5f855c",
       "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "f2f570b5_59e12fd1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/TransformLogsCommand.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-01-31T14:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ffdd43e_cda30138",
+      "range": {
+        "startLine": 100,
+        "startChar": 37,
+        "endLine": 100,
+        "endChar": 47
+      },
+      "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd06bc4f_2313581d",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/TransformLogsCommand.java",
         "patchSetId": 10
@@ -93,6 +177,24 @@
       "writtenOn": "2019-01-31T09:28:31Z",
       "side": 1,
       "message": "TODO",
+      "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85f4595f_b2e56405",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/TransformLogsCommand.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-01-31T14:22:21Z",
+      "side": 1,
+      "message": "I actually added the TODO to remind me to add a comment here, but I forgot about it :P\n\nI\u0027m not reading the path from the config at the moment. I was thinking of doing it in a follow-up change since the patch set is already big.\n\nWDYT?",
+      "parentUuid": "cd06bc4f_2313581d",
       "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
