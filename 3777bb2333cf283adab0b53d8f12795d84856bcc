@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "633e08ce_35dbc87d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditSshLog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-31T09:28:31Z",
+      "side": 1,
+      "message": "I don\u0027t fully understand this comment, what\u0027s the point of saying that elapse is not correct?",
+      "range": {
+        "startLine": 101,
+        "startChar": 1,
+        "endLine": 102,
+        "endChar": 12
+      },
+      "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eede87c_dead45af",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/AuditSshLog.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-31T09:28:31Z",
+      "side": 1,
+      "message": "is this really the file type? would it be better file name? logBaseName?",
+      "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddad4c9d_be5f855c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/TransformLogsCommand.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-31T09:28:31Z",
+      "side": 1,
+      "message": "Should these be printed on stderr instead?\nAlso, some logs go to error_logs, whilest some others get just printed.\nWhat\u0027s the rationale behind one or the other? Should we make the error reporting going all to the same place (logs)? How do other plugins do this?",
+      "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ffdd43e_cda30138",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/TransformLogsCommand.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-31T09:28:31Z",
+      "side": 1,
+      "message": "Could this refer to AuditSshLog.fileType? same for line 104",
+      "range": {
+        "startLine": 100,
+        "startChar": 37,
+        "endLine": 100,
+        "endChar": 47
+      },
+      "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd06bc4f_2313581d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/auditsl4j/TransformLogsCommand.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-01-31T09:28:31Z",
+      "side": 1,
+      "message": "TODO",
+      "revId": "3777bb2333cf283adab0b53d8f12795d84856bcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
