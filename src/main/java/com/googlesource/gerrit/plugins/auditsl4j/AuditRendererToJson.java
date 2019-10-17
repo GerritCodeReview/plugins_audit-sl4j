@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.auditsl4j;
 
 import com.google.common.collect.ListMultimap;
 import com.google.gerrit.json.OutputFormat;
-import com.google.gerrit.reviewdb.client.Account;
+import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.AccessPath;
 import com.google.gerrit.server.AuditEvent;
 import com.google.gerrit.server.CurrentUser;
