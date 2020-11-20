@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.auditsl4j;
 
 import com.google.common.collect.ListMultimap;
 import com.google.gerrit.entities.Account;
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.json.OutputFormat;
 import com.google.gerrit.server.AccessPath;
 import com.google.gerrit.server.AuditEvent;
@@ -58,6 +59,7 @@ public class AuditRendererToJson implements AuditFormatRenderer {
               && !CurrentUser.class.isAssignableFrom(clazz)
               && !ListMultimap.class.isAssignableFrom(clazz)
               && !AuditEvent.UUID.class.isAssignableFrom(clazz)
+              && !Response.class.isAssignableFrom(clazz)
               && !WHITELIST_CLASSES.contains(clazz);
         }
       };
