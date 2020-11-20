@@ -22,10 +22,7 @@ import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.common.Version;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.audit.AuditListener;
-import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import org.apache.http.client.fluent.Request;
 import org.junit.Test;
 
 @Sandboxed
@@ -33,8 +30,6 @@ import org.junit.Test;
     name = "audit-sl4j",
     sysModule = "com.googlesource.gerrit.plugins.auditsl4j.LoggerAuditToCsvTest$TestModule")
 public class LoggerAuditToCsvTest extends LightweightPluginDaemonTest implements WaitForCondition {
-
-  @Inject @CanonicalWebUrl private String webUrl;
 
   public static class TestModule extends AbstractModule {
 
@@ -50,10 +45,35 @@ public class LoggerAuditToCsvTest extends LightweightPluginDaemonTest implements
   public void testHttpCsvAudit() throws Exception {
     AuditWriterToStringList auditStrings = getPluginInstance(AuditWriterToStringList.class);
 
-    Request.Get(webUrl + "config/server/version").execute().returnResponse();
+    anonymousRestSession.get("/config/server/version").assertOK();
 
-    assertThat(waitFor(() -> auditStrings.strings.size() == 2)).isTrue();
+    waitForFirstAuditRecord(auditStrings);
     assertThat(auditStrings.strings.get(1)).contains(Version.getVersion());
+  }
+
+  @Test
+  public void testHttpCsvAuditShouldContainCurrentUser() throws Exception {
+    AuditWriterToStringList auditStrings = getPluginInstance(AuditWriterToStringList.class);
+
+    anonymousRestSession.get("/config/server/version").assertOK();
+
+    waitForFirstAuditRecord(auditStrings);
+    assertThat(auditStrings.strings.get(1)).contains("ANONYMOUS");
+  }
+
+  @Test
+  public void testHttpCsvAuditShouldContainIdentifiedUser() throws Exception {
+    AuditWriterToStringList auditStrings = getPluginInstance(AuditWriterToStringList.class);
+
+    userRestSession.get("/config/server/version").assertOK();
+
+    waitForFirstAuditRecord(auditStrings);
+
+    assertThat(auditStrings.strings.get(1).toLowerCase()).contains(user.id().toString());
+  }
+
+  private void waitForFirstAuditRecord(AuditWriterToStringList auditStrings) {
+    assertThat(waitFor(() -> auditStrings.strings.size() >= 2)).isTrue();
   }
 
   private <T> T getPluginInstance(Class<T> clazz) {
