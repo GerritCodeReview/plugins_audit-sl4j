@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.auditsl4j;
 
 import com.google.common.collect.ListMultimap;
 import com.google.gerrit.entities.Account;
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.json.OutputFormat;
 import com.google.gerrit.server.AccessPath;
 import com.google.gerrit.server.AuditEvent;
@@ -23,6 +24,11 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
@@ -58,7 +64,30 @@ public class AuditRendererToJson implements AuditFormatRenderer {
               && !CurrentUser.class.isAssignableFrom(clazz)
               && !ListMultimap.class.isAssignableFrom(clazz)
               && !AuditEvent.UUID.class.isAssignableFrom(clazz)
+              && !Response.class.isAssignableFrom(clazz)
               && !WHITELIST_CLASSES.contains(clazz);
+        }
+      };
+
+  private static final JsonSerializer<CurrentUser> CURRENT_USER_SERIALIZER =
+      new JsonSerializer<CurrentUser>() {
+
+        @Override
+        public JsonElement serialize(
+            CurrentUser user, Type typeOfSrc, JsonSerializationContext context) {
+          JsonObject jsonUser = new JsonObject();
+
+          jsonUser.addProperty("access_path", user.getAccessPath().name());
+          jsonUser.addProperty("name", user.getLoggableName());
+          jsonUser.addProperty("internal_user", user.isInternalUser());
+          jsonUser.addProperty("identified_user", user.isIdentifiedUser());
+          jsonUser.addProperty("impersonating", user.isImpersonating());
+
+          if (user.isIdentifiedUser()) {
+            jsonUser.addProperty("account_id", user.asIdentifiedUser().getAccountId().get());
+          }
+
+          return jsonUser;
         }
       };
 
@@ -66,6 +95,7 @@ public class AuditRendererToJson implements AuditFormatRenderer {
       OutputFormat.JSON_COMPACT
           .newGsonBuilder()
           .setExclusionStrategies(INCLUDE_ONLY_WHITELISTED)
+          .registerTypeAdapter(CurrentUser.class, CURRENT_USER_SERIALIZER)
           .create();
 
   @Override

@@ -27,7 +27,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
-import org.apache.http.client.fluent.Request;
 import org.junit.Test;
 
 @Sandboxed
@@ -52,17 +51,46 @@ public class LoggerAuditToJsonTest extends LightweightPluginDaemonTest implement
   public void testHttpJsonAudit() throws Exception {
     AuditWriterToStringList auditStrings = getPluginInstance(AuditWriterToStringList.class);
 
-    Request.Get(webUrl + "config/server/version").execute().returnResponse();
-
-    assertThat(waitFor(() -> auditStrings.strings.size() == 1)).isTrue();
+    anonymousRestSession.get("/config/server/version").assertOK();
+    waitForFirstAuditRecord(auditStrings);
 
     String auditJsonString = auditStrings.strings.get(0);
+    assertValidJson(auditJsonString);
     assertThat(auditJsonString).contains(Version.getVersion());
-    JsonObject auditJson = new Gson().fromJson(auditJsonString, JsonObject.class);
-    assertThat(auditJson).isNotNull();
+  }
+
+  @Test
+  public void testHttpCsvAuditShouldContainAnonymousUser() throws Exception {
+    AuditWriterToStringList auditStrings = getPluginInstance(AuditWriterToStringList.class);
+
+    anonymousRestSession.get("/config/server/version").assertOK();
+    waitForFirstAuditRecord(auditStrings);
+
+    assertThat(auditStrings.strings.get(0).toLowerCase()).contains("anonymous");
+  }
+
+  @Test
+  public void testHttpCsvAuditShouldContainIdentifiedUser() throws Exception {
+    AuditWriterToStringList auditStrings = getPluginInstance(AuditWriterToStringList.class);
+
+    userRestSession.get("/config/server/version").assertOK();
+
+    waitForFirstAuditRecord(auditStrings);
+
+    assertThat(auditStrings.strings.get(0).toLowerCase()).contains(user.id().toString());
   }
 
   private <T> T getPluginInstance(Class<T> clazz) {
     return plugin.getSysInjector().getInstance(clazz);
+  }
+
+  private void waitForFirstAuditRecord(AuditWriterToStringList auditStrings) {
+    assertThat(waitFor(() -> auditStrings.strings.size() >= 1)).isTrue();
+  }
+
+  private JsonObject assertValidJson(String auditJsonString) {
+    JsonObject auditJson = new Gson().fromJson(auditJsonString, JsonObject.class);
+    assertThat(auditJson).isNotNull();
+    return auditJson;
   }
 }
