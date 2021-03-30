@@ -34,9 +34,9 @@ import java.util.HashSet;
 import java.util.Optional;
 
 public class AuditRendererToJson implements AuditFormatRenderer {
-  private final ExclusionStrategy INCLUDE_ONLY_WHITELISTED =
+  private final ExclusionStrategy INCLUDE_ONLY_ALLOWED =
       new ExclusionStrategy() {
-        private final HashSet<Class<?>> WHITELIST_CLASSES =
+        private final HashSet<Class<?>> ALLOWLIST_CLASSES =
             new HashSet<>(
                 Arrays.asList(
                     String.class,
@@ -50,12 +50,12 @@ public class AuditRendererToJson implements AuditFormatRenderer {
                     CurrentUser.PropertyKey.class,
                     Account.Id.class,
                     AuditRecord.class));
-        private final HashSet<String> BLACKLIST_FIELDS =
+        private final HashSet<String> FORBIDDEN_FIELDS =
             new HashSet<>(Arrays.asList("anonymousCowardName"));
 
         @Override
         public boolean shouldSkipField(FieldAttributes f) {
-          return BLACKLIST_FIELDS.contains(f.getName());
+          return FORBIDDEN_FIELDS.contains(f.getName());
         }
 
         @Override
@@ -65,7 +65,7 @@ public class AuditRendererToJson implements AuditFormatRenderer {
               && !ListMultimap.class.isAssignableFrom(clazz)
               && !AuditEvent.UUID.class.isAssignableFrom(clazz)
               && !Response.class.isAssignableFrom(clazz)
-              && !WHITELIST_CLASSES.contains(clazz);
+              && !ALLOWLIST_CLASSES.contains(clazz);
         }
       };
 
@@ -94,7 +94,7 @@ public class AuditRendererToJson implements AuditFormatRenderer {
   private final Gson gson =
       OutputFormat.JSON_COMPACT
           .newGsonBuilder()
-          .setExclusionStrategies(INCLUDE_ONLY_WHITELISTED)
+          .setExclusionStrategies(INCLUDE_ONLY_ALLOWED)
           .registerTypeAdapter(CurrentUser.class, CURRENT_USER_SERIALIZER)
           .create();
 
