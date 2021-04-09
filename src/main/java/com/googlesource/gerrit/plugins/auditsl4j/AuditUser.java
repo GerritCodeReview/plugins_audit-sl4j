@@ -34,4 +34,9 @@ public class AuditUser extends CurrentUser {
   public void setUserName(String username) {
     this.username = username;
   }
+
+  @Override
+  public Object getCacheKey() {
+    return getAccountId();
+  }
 }

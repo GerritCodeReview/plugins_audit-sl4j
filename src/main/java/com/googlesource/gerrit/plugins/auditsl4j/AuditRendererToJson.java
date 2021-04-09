@@ -21,6 +21,7 @@ import com.google.gerrit.json.OutputFormat;
 import com.google.gerrit.server.AccessPath;
 import com.google.gerrit.server.AuditEvent;
 import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.PropertyMap;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -47,7 +48,7 @@ public class AuditRendererToJson implements AuditFormatRenderer {
                     Integer.class,
                     Integer.TYPE,
                     AccessPath.class,
-                    CurrentUser.PropertyKey.class,
+                    PropertyMap.Key.class,
                     Account.Id.class,
                     AuditRecord.class));
         private final HashSet<String> FORBIDDEN_FIELDS =
