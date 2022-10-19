@@ -149,6 +149,7 @@ public class SSHLog implements TransformableLog {
     return Optional.empty();
   }
 
+  @Override
   public Optional<String> toAuditLog(LoggerAudit loggerAudit) {
     return getWhen()
         .map(

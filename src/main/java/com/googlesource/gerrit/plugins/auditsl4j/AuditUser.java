@@ -27,6 +27,11 @@ public class AuditUser extends CurrentUser {
   }
 
   @Override
+  public Object getCacheKey() {
+    return null;
+  }
+
+  @Override
   public Optional<String> getUserName() {
     return Optional.of(username);
   }
