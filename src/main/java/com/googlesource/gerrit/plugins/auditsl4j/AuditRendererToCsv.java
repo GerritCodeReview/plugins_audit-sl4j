@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.auditsl4j;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
 import com.google.gerrit.server.AuditEvent;
 import com.google.gerrit.server.audit.ExtendedHttpAuditEvent;
@@ -21,9 +22,7 @@ import com.google.gerrit.server.audit.HttpAuditEvent;
 import com.google.gerrit.server.audit.SshAuditEvent;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -33,17 +32,16 @@ public class AuditRendererToCsv implements AuditFormatRenderer {
 
   private static final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss.SSSS");
 
-  @SuppressWarnings("serial")
   private static final Map<Class<?>, CsvFieldFormatter<?>> FIELD_CSV_FORMATTERS =
-      Collections.unmodifiableMap(
-          new HashMap<Class<?>, CsvFieldFormatter<? extends Object>>() {
-            {
-              put(HttpAuditEvent.class, new HttpAuditEventFormat());
-              put(ExtendedHttpAuditEvent.class, new HttpAuditEventFormat());
-              put(SshAuditEvent.class, new SshAuditEventFormat());
-              put(AuditEvent.class, new AuditEventFormat());
-            }
-          });
+      ImmutableMap.of(
+          HttpAuditEvent.class,
+          new HttpAuditEventFormat(),
+          ExtendedHttpAuditEvent.class,
+          new HttpAuditEventFormat(),
+          SshAuditEvent.class,
+          new SshAuditEventFormat(),
+          AuditEvent.class,
+          new AuditEventFormat());
 
   interface CsvFieldFormatter<T> {
     String formatToCsv(T result);
