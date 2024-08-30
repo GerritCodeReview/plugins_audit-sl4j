@@ -16,6 +16,24 @@
       "message": "I would add a reference to this change [1] which introduced the erroroprone pattern.",
       "revId": "7e2530efa8a8d7a4529bcf258d85a2e4420569d4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2cae31e_ce9bb319",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1035412
+      },
+      "writtenOn": "2024-08-30T13:08:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5585da8a_6060c163",
+      "revId": "7e2530efa8a8d7a4529bcf258d85a2e4420569d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
