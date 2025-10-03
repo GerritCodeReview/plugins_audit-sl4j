@@ -1,4 +1,11 @@
-# Audit plugin for Gerrit
+# DEPRECATION NOTICE
+
+GerritForge has decided to [change the license to BSL](https://gitenterprise.me/2025/09/30/re-licensing-gerritforge-plugins-welcome-to-gerrit-enterprise/)
+therefore the Apache 2.0 version of this plugin is deprecated.
+The recommended version of the audit-sl4j plugin is on [GitHub](https://github.com/GerritForge/audit-sl4j)
+and the development continues on [GerritHub.io](https://review.gerrithub.io/admin/repos/GerritForge/audit-sl4j,general).
+
+# Audit plugin for Gerrit (DEPRECATED)
 
 Plug into the Gerrit Code Review audit extension and format and forward all
 the events to an [SLF4J appender](https://www.slf4j.org), the same logging
